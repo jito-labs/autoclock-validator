@@ -5,5 +5,3 @@
   args:
     chdir: "/mnt/{{ repo_dir }}"
     executable: /bin/bash
-  tags:
-    - build
