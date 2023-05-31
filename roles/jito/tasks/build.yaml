@@ -3,5 +3,5 @@
   become_user: solana
   shell: ". \"$HOME/.cargo/env\" && CI_COMMIT=$(git rev-parse HEAD) scripts/cargo-install-all.sh ~/.local/share/solana/install/releases/{{ repo_version }}"
   args:
-    chdir: "/mnt/{{ repo_dir }}"
+    chdir: "/home/solana/{{ repo_dir }}"
     executable: /bin/bash

@@ -33,7 +33,7 @@
   become_user: solana
   copy:
     src: snapcheck.py
-    dest: /mnt/snapcheck.py
+    dest: /home/solana/snapcheck.py
     owner: solana
     group: solana
 
@@ -42,7 +42,7 @@
   become_user: solana
   copy:
     src: snapshot-finder.py
-    dest: /mnt/snapshot-finder.py
+    dest: /home/solana/snapshot-finder.py
     owner: solana
     group: solana
 
@@ -51,6 +51,6 @@
   become_user: solana
   copy:
     src: montip.py
-    dest: /mnt/montip.py
+    dest: /home/solana/montip.py
     owner: solana
     group: solana

@@ -3,7 +3,7 @@
 - name: git update
   import_tasks: git.yaml
 
-- name: build jito sol
+- name: build jito-solana
   import_tasks: build.yaml
 
 - name: key management

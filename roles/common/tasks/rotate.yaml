@@ -1,8 +1,8 @@
-- name: create logrotate sol
+- name: create solana validator logrotate
   become: true
   become_user: root
   file:
-    path: /etc/logrotate.d/sol
+    path: /etc/logrotate.d/solana-validator
     state: touch
     mode: "0644"
     owner: root
@@ -10,13 +10,13 @@
     modification_time: preserve
     access_time: preserve
 
-- name: logrotate for solana.log
+- name: logrotate for solana-validator.log
   become: true
   become_user: root
   blockinfile:
-    path: /etc/logrotate.d/sol
+    path: /etc/logrotate.d/solana-validator
     block: |
-      /mnt/logs/solana-validator.log {
+      /solana/logs/solana-validator.log {
         rotate 7
         daily
         missingok
