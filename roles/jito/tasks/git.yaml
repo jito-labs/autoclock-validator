@@ -3,7 +3,7 @@
   become_user: solana
   git:
     repo: "https://github.com/{{ org_name }}/{{ repo_name }}.git"
-    dest: "/mnt/{{ repo_dir }}"
+    dest: "/home/solana/{{ repo_dir }}"
     version: "tags/{{ repo_version }}"
     accept_hostkey: yes
     force: yes
@@ -13,5 +13,5 @@
   become_user: solana
   shell: git submodule update --init --recursive
   args:
-    chdir: "/mnt/{{ repo_dir }}"
+    chdir: "/home/solana/{{ repo_dir }}"
     executable: /bin/bash

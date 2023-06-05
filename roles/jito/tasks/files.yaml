@@ -1,6 +1,6 @@
-- name: sol validator setup
+- name: solana validator setup
   become: true
-  become_user: solana
+  become_user: root
   template:
     src: validator.sh.j2
     dest: /home/solana/validator.sh

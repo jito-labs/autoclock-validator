@@ -1,17 +1,29 @@
-- name: create solana group
+- name: Make sure we have a solana group
   become: true
   become_user: root
   group:
     name: solana
     state: present
 
-- name: create solana user
+- name: Allow solana group to have passwordless sudo
+  become: true
+  become_user: root
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%solana'
+    line: '%solana ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: Add solana to solana group
   become: true
   become_user: root
   user:
     name: solana
-    create_home: yes
     groups: solana
+    append: yes
+    state: present
+    create_home: yes
     shell: /bin/bash
 
 - name: Ensure solana build is in path for solana user
@@ -19,4 +31,4 @@
   become_user: root
   lineinfile:
     path: /home/solana/.bashrc
-    line: 'export PATH=/mnt/{{ repo_dir }}/target/release:$PATH'
+    line: 'export PATH=/home/solana/{{ repo_dir }}/target/release:$PATH'

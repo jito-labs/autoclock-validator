@@ -2,14 +2,14 @@
   become: true
   become_user: root
   command:
-    dd if=/dev/zero of=/mnt/swapfile bs=1024 count={{ swap_mb }}k
-    creates="/mnt/swapfile"
+    dd if=/dev/zero of=/solana/accounts/swap bs=1024 count={{ swap_mb }}k
+    creates="/solana/accounts/swap"
 
 - name: Change swap file permissions
   become: true
   become_user: root
   file: 
-    path=/mnt/swapfile
+    path=/solana/accounts/swap
     owner=root
     group=root
     mode=0600
@@ -17,20 +17,20 @@
 - name: Check swap file type
   become: true
   become_user: root
-  command: file /mnt/swapfile
-  register: swapfile
+  command: file /solana/accounts/swap
+  register: swap
 
 - name: Make swap file
   become: true
   become_user: root
-  command: "sudo mkswap /mnt/swapfile"
-  when: swapfile.stdout.find('swap file') == -1
+  command: "sudo mkswap /solana/accounts/swap"
+  when: swap.stdout.find('swap file') == -1
 
 - name: Write swap entry in fstab
   become: true
   become_user: root
   mount: name=none
-    src=/mnt/swapfile
+    src=/solana/accounts/swap
     fstype=swap
     opts=sw
     passno=0
@@ -41,11 +41,11 @@
   become: true
   become_user: root
   ignore_errors: yes
-  shell: swapon -show | grep /mnt/swapfile
+  shell: swapon -show | grep /solana/accounts/swap
   register: swap_check
 
 - name: Mount swap
   become: true
   become_user: root
-  command: "swapon /mnt/swapfile"
+  command: "swapon /solana/accounts/swap"
   when: swap_check.rc != 0
